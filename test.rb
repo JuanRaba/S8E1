@@ -58,3 +58,5 @@ File.open('ejer4.data', 'r') do |file|
     puts psum.to_s if (psum.last.to_i <= max_wanted)
   end
 end
+
+NUM_ALMACENES = 3
