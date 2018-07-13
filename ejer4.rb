@@ -1,6 +1,11 @@
 # Ejercicio tipo prueba
 option = 0
 
+def product_sum(array)
+  sum = array.last(array.size - 1).inject (0) { |mem, var| mem + var.to_i }
+  "#{e.first} #{sum}"
+end
+
 def when1
   data = []
   File.open('ejer4.data', 'r') do |file|
@@ -21,23 +26,17 @@ d) Volver al menú principal'
     case option
     when 'a'
       data.each do |e|
-        puts sum = e.last( 1)
-        #.inject (0) { |mem, var| mem + var }
-        puts "#{e[0]} #{sum}"
+        puts product_sum(e)
       end
     when 'b'
-      data.each_with_index do |_tienda, i|
-        if i != 0
-          # fixed i makes posible to inject by tienda
-          puts "tienda#{i} #{data.inject(0) { |mem, var| mem + var[i].to_i }}"
-        end
+      # fixed i makes posible to inject by tienda
+      for i in 1..(data.first.size - 1)
+        puts "tienda#{i} #{data.inject(0) { |mem, var| mem + var[i].to_i }}"
       end
     when 'c'
       total = 0
-      data.each_with_index do |_tienda, i|
-        if i != 0
-          total += data.inject(0) { |mem, var| mem + var[i].to_i }
-        end
+      for i in 1..(data.first.size - 1)
+        total += data.inject(0) { |mem, var| mem + var[i].to_i }
       end
       puts "total=#{total}"
     when 'd'
@@ -56,6 +55,15 @@ while option != 6
   case option
   when 1
     when1
+  when 2
+    puts 'ingresa nombre de un producto '
+    prod_wanted = gets.chomp
+    File.open('ejer4.data', 'r') do |file|
+      file.readlines.each do |line|
+        prod = line.split(',').map { |e| e.chomp.gsub(/[NR]/, '0') }
+        puts product_sum(prod) if prod.first == prod_wanted
+      end
+    end
   else
     puts 'Por favor, ingresa num del 1 al 6!'
   end
