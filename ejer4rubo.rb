@@ -49,8 +49,7 @@ def whenc(data)
 end
 
 def when1
-  data = read_data
-  exit = false
+  exit = (data = read_data) == []
   until exit
     case showmenu
     when 'a' then whena(data)
