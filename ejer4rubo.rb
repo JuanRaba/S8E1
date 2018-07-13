@@ -17,39 +17,46 @@ def read_data
   data
 end
 
+def showmenu
+  puts '
+  a) Mostrar la existencia por productos.
+  b) Mostrar la existencia total por tienda.
+  c) Mostrar la existencia total en todas las tiendas.
+  d) Volver al menú principal'
+  gets.chomp
+end
+
+def whena(data)
+  data.each do |e|
+    arr = product_sum(e)
+    puts "#{arr.first} #{arr.last} "
+  end
+end
+
+def whenb(data)
+  # fixed i makes posible to inject by tienda
+  for i in 1..(data.first.size - 1)
+    puts "tienda#{i} #{data.inject(0) { |mem, var| mem + var[i].to_i }}"
+  end
+end
+
+def whenc(data)
+  total = 0
+  for i in 1..(data.first.size - 1)
+    total += data.inject(0) { |mem, var| mem + var[i].to_i }
+  end
+  puts "total=#{total}"
+end
+
 def when1
   data = read_data
-  puts 'permite conocer la cantidad de productos existentes'
   exit = false
   until exit
-    puts '
-    a) Mostrar la existencia por productos.
-    b) Mostrar la existencia total por tienda.
-    c) Mostrar la existencia total en todas las tiendas.
-    d) Volver al menú principal'
-    option = gets.chomp
-    case option
-    when 'a'
-      data.each do |e|
-        arr = product_sum(e)
-        puts "#{arr.first} #{arr.last} "
-      end
-    when 'b'
-      # fixed i makes posible to inject by tienda
-      for i in 1..(data.first.size - 1)
-        puts "tienda#{i} #{data.inject(0) { |mem, var| mem + var[i].to_i }}"
-      end
-    when 'c'
-      total = 0
-      for i in 1..(data.first.size - 1)
-        total += data.inject(0) { |mem, var| mem + var[i].to_i }
-      end
-      puts "total=#{total}"
-    when 'd'
-      puts 'returning to main menu'
-      exit = true
-    else
-      puts 'please abcd?'
+    case showmenu
+    when 'a' then whena(data)
+    when 'b' then whenb(data)
+    when 'c' then whenc(data)
+    when 'd' then exit = true
     end
   end
 end
