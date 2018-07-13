@@ -7,11 +7,17 @@
   print data
 
   data.each do |e|
-    puts "#{e[0]} #{e[1].to_i + e[2].to_i + e[3].to_i}"
+    sum = 0
+    e.each_with_index do |_val, i|
+      sum += e[i].to_i if i != 0
+    end
+    puts "#{e[0]} #{sum}"
   end
 
-      for i in 1..3 do
-        puts "tienda#{i} #{data.inject(0) { |mem, var| mem + var[i].to_i }}"
+      data.each_with_index do |_tienda, i|
+        if i != 0
+          puts "tienda#{i} #{data.inject(0) { |mem, var| mem + var[i].to_i }}"
+        end
       end
       total = 0
       for i in 1..3 do

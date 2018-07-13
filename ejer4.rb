@@ -5,11 +5,11 @@ def when1
   data = []
   File.open('ejer4.data', 'r') do |file|
     data = file.readlines.map do |line|
-      line.split(',').map {|e| e.chomp.gsub(/[NR]/, '0')}
+      line.split(',').map { |e| e.chomp.gsub(/[NR]/, '0') }
     end
   end
-  
-  puts "permite conocer la cantidad de productos existentes"
+
+  puts 'permite conocer la cantidad de productos existentes'
   puts 'a) Mostrar la existencia por productos.
 b) Mostrar la existencia total por tienda.
 c) Mostrar la existencia total en todas las tiendas.
@@ -21,16 +21,25 @@ d) Volver al menú principal'
     case option
     when 'a'
       data.each do |e|
-        puts "#{e[0]} #{e[1].to_i + e[2].to_i + e[3].to_i}"
+        sum = 0
+        e.each_with_index do |_val, i|
+          sum += e[i].to_i if i != 0
+        end
+        puts "#{e[0]} #{sum}"
       end
     when 'b'
-      for i in 1..3 do
-        puts "tienda#{i} #{data.inject(0) { |mem, var| mem + var[i].to_i }}"
+      data.each_with_index do |_tienda, i|
+        if i != 0
+          # fixed i makes posible to inject by tienda
+          puts "tienda#{i} #{data.inject(0) { |mem, var| mem + var[i].to_i }}"
+        end
       end
     when 'c'
       total = 0
-      for i in 1..3 do
-        total += data.inject(0) { |mem, var| mem + var[i].to_i }
+      data.each_with_index do |_tienda, i|
+        if i != 0
+          total += data.inject(0) { |mem, var| mem + var[i].to_i }
+        end
       end
       puts "total=#{total}"
     when 'd'
