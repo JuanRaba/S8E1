@@ -21,10 +21,8 @@ d) Volver al menú principal'
     case option
     when 'a'
       data.each do |e|
-        sum = 0
-        e.each_with_index do |_val, i|
-          sum += e[i].to_i if i != 0
-        end
+        puts sum = e.last( 1)
+        #.inject (0) { |mem, var| mem + var }
         puts "#{e[0]} #{sum}"
       end
     when 'b'
